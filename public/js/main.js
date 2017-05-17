@@ -70,7 +70,7 @@ function inicializaMarcadores() {
 		var digitado = campo.val();
 		var digitouCorreto = frase.startsWith(digitado);
 		// var comparavel = frase.substr(0, digitado.length);
-		// if (digitado === comparavel) {
+
 		if (digitouCorreto) {
 			campo.addClass('borda-verde');
 			campo.removeClass('borda-vermelha');
