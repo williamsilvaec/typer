@@ -30,8 +30,9 @@ function inicializaContadores() {
 }
 
 function inicializaMarcadores() {
-    var frase = $(".frase").text();
+
     campo.on("input", function() {
+        var frase = $(".frase").text();
         var digitado = campo.val();
         var comparavel = frase.substr(0, digitado.length);
 
@@ -46,17 +47,16 @@ function inicializaMarcadores() {
 }
 
 function inicializaCronometro() {
-    var tempoRestante = $("#tempo-digitacao").text();
-    campo.one("focus", function() {
-    	debugger;
-        $("#botao-reiniciar").attr("disabled",true);
+    campo.one("focus", () => {
+        var tempoRestante = $("#tempo-digitacao").text();
+        $("#botao-reiniciar").prop("disabled",true);
         var cronometroID = setInterval(function() {
             tempoRestante--;
             $("#tempo-digitacao").text(tempoRestante);
             if (tempoRestante < 1) {
                 clearInterval(cronometroID);
                 finalizaJogo();
-                $("#botao-reiniciar").attr("disabled",false);
+                $("#botao-reiniciar").prop("disabled",false);
             }
         }, 1000);
     });
@@ -78,4 +78,8 @@ function reiniciaJogo() {
     campo.toggleClass("campo-desativado");
     campo.removeClass("borda-vermelha");
     campo.removeClass("borda-verde");
+}
+
+function atualizaTempoInicial(tempo) {
+    $('#tempo-digitacao').text(tempo);
 }

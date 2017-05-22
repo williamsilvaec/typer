@@ -24,3 +24,22 @@
 .borda-vermelha {
     border: 3px solid red;
 }
+
+.placar {
+    display: none;
+}
+
+#erro {
+    color: red;
+    display : none;
+}
+#spinner {
+    display: none;
+}
+body {
+    overflow: scroll;
+}
+
+#frase-id{
+    width: 40px;
+}
