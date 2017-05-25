@@ -56,3 +56,22 @@ function mostraPlacar() {
     $('.placar').stop().slideToggle(600);
     scrollPlacar();
 }
+
+function atualizaPlacar() {
+
+    $.get('http://localhost:3000/placar', function (data) {
+
+        // data.forEach(resposta => {
+        //     var linha = novaLinha(resposta.usuario, resposta.pontos);
+        //     linha.find('.botao-remover').click(removeLinha);
+        //
+        //     $('tbody').append(linha);
+        // });
+        $.each(data, function () {
+            var linha = novaLinha(this.usuario, this.pontos);
+            linha.find('.botao-remover').click(removeLinha);
+            $('tbody').append(linha);
+        });
+
+    });
+}

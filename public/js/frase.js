@@ -4,12 +4,13 @@
 
 $('#botao-frase').click(fraseAleatoria);
 $('#botao-frase-id').click(buscaFrase);
+$('#botao-sync').click(sincronizaPlacar);
 
 function fraseAleatoria() {
 
     $('#spinner').toggle();
 
-    $.get('http://localhost:3000/frases', trocaFraseAleatoria).fail(() => {
+    $.get('http://localhost:3001/frases', trocaFraseAleatoria).fail(() => {
 
         $('#erro').toggle();
         setTimeout(() => $('#erro').toggle(), 2000);
@@ -31,10 +32,10 @@ function trocaFraseAleatoria(data) {
 function buscaFrase() {
     $('#spinner').toggle();
     let fraseId = $('#frase-id').val();
-    
+
     let dados = {id : fraseId};
 
-    $.get('http://localhost:3000/frases', dados, trocaFrase)
+    $.get('http://localhost:3001/frases', dados, trocaFrase)
     .fail(() => {
         $('#erro').toggle();
         setTimeout(() => $('#erro'), 2000)
@@ -47,6 +48,24 @@ function trocaFrase(data) {
     frase.text(data.texto);
     atualizaTamanhoFrase();
     atualizaTempoInicial(data.tempo);
+}
+
+function sincronizaPlacar() {
+
+    var placar = [];
+    var linhas = $('tbody>tr');
+
+
+    linhas.each(function () {
+        var usuario = $(this).find('td:nth-child(1)').text();
+        var palavras = $(this).find("td:nth-child(2)").text();
+        placar.push({usuario: usuario, pontos:palavras});
+    });
+
+    var dados = {placar: placar};
+    $.post('http://localhost:3001/placar', dados, function () {
+       console.log('deu certo');
+    });
 }
 
 
